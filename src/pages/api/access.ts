@@ -34,7 +34,7 @@ const GetHandler = async (
   >,
   roomService: RoomServiceClient
 ) => {
-  const wsUrl = `ws://${process.env.LIVEKIT_URL}`;
+  const wsUrl = `wss://${process.env.LIVEKIT_URL}`;
   const accessInfo = await getAccessInfo("default");
 
   return res.status(200).json({
