@@ -9,7 +9,7 @@ import {
 } from "react";
 
 import { facingModeFromLocalTrack, Track, VideoTrack } from "livekit-client";
-import { useCombinedRefs } from "@/hooks/useCombinedRefs";
+import { useCombinedRefs } from "./useCombinedRefs";
 
 export type VideoTrackProps = VideoHTMLAttributes<HTMLVideoElement> & {
   track?: VideoTrack;
