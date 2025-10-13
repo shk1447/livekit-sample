@@ -52,4 +52,4 @@ ffmpeg -loglevel verbose -re -rtsp_transport tcp \
  -an \
  -f whip "http://124.56.79.147:38080/ingress/K47xcCewAwAr"
 
-ffmpeg -hide_banner -loglevel info -rtsp_transport tcp -i "rtsp://user1:%21soxtest123@cctv.soxcorp.co.kr:5554/profile2/media.SMP" -c:v copy -c:a aac -ar 48000 -ac 2 -f whip -headers "Authorization: Bearer 3KRW8kseKhyn" "http://124.56.79.147:38080/w"
+ffmpeg -hide_banner -loglevel info -rtsp_transport tcp -i "rtsp://user1:%21soxtest123@cctv.soxcorp.co.kr:5554/profile2/media.SMP" -c:v copy -c:a aac -ar 48000 -ac 2 -f whip -headers "Authorization: Bearer 3KRW8kseKhyn" "http://124.56.79.147:38080/w/IN_Vr7jVDwW3NdE"
