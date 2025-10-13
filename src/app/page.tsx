@@ -1,11 +1,12 @@
 "use client";
 import { GridLayout } from "@/components/Layouts/GridLayout";
+import { GetMediaDevices } from "@/components/Media/GetMediaDevices";
 import { VideoTrackRenderer } from "@/components/Media/VideoTrackRenderer";
 import { MainViewModel } from "@/logics";
 import { Box, Button, Divider } from "@mantine/core";
 import axios from "axios";
 import { Participant, Track, VideoTrack } from "livekit-client";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useViewModel } from "x-view-model";
 
 export default function Home() {
@@ -13,6 +14,11 @@ export default function Home() {
     "local",
     "remotes",
   ]);
+
+  useEffect(() => {
+    send("setMicDevice", { id: "default", enabled: true, filter: false });
+    send("setCamDevice", { id: "default", enabled: true });
+  }, []);
 
   const { localVideoTrackReferences, remoteVideoTrackReferences } =
     useMemo(() => {
