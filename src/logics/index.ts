@@ -12,6 +12,7 @@ export class MainController extends RealtimeController {
     });
     this.on("local_join", (args) => {
       //
+      alert(`${args.metadata.identity} joined!`);
     });
     this.on("remote_join", (args) => {
       // this.context!.remotes[args.metadata.identity] = {
@@ -19,6 +20,7 @@ export class MainController extends RealtimeController {
       //   microphone: { enabled: undefined, muted: undefined },
       //   metadata: args.metadata,
       // };
+      alert(`${args.metadata.identity} joined!`);
     });
 
     this.on("remote_leave", (args) => {
@@ -61,6 +63,7 @@ export type MainContext = {
     filter: boolean;
   }) => Promise<void>;
   setCamDevice: (payload: { id: string; enabled: boolean }) => Promise<void>;
+  streamCLI?: string;
 };
 
 const controller = new MainController();
@@ -69,7 +72,8 @@ export const MainViewModel = registViewModel<MainContext, MainController>(
   {
     async getStreamKey() {
       const { data } = await axios.get("/api/stream");
-      console.log(data);
+
+      this.streamCLI = `ffmpeg -rtsp_transport tcp -i 'rtsp://user1:!soxtest123@cctv.soxcorp.co.kr:5554/profile2/media.SMP' -c:v libx264 -preset veryfast -c:a aac -b:a 128k -f flv '${data.result.url}/${data.result.streamKey}'`;
     },
     async connect() {
       await controller.disconnect();

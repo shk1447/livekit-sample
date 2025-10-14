@@ -13,6 +13,7 @@ export default function Home() {
   const [state, send, controller] = useViewModel(MainViewModel, [
     "local",
     "remotes",
+    "streamCLI",
   ]);
 
   useEffect(() => {
@@ -102,7 +103,7 @@ export default function Home() {
         </Box>
         <Divider />
         <Box style={{ padding: "1rem", display: "flex", gap: "12px" }}>
-          <Box style={{ flex: 1 }} />
+          <Box style={{ flex: 1 }}>{state.streamCLI}</Box>
           <Button
             onClick={async () => {
               send("getStreamKey", undefined);

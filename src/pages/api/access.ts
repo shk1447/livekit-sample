@@ -9,10 +9,11 @@ const getAccessInfo = async (roomName: string) => {
   const apiKey = process.env.LIVEKIT_API_KEY;
   const apiSecret = process.env.LIVEKIT_API_SECRET;
 
+  const identity = nanoid();
   const at = new AccessToken(apiKey, apiSecret, {
-    identity: nanoid(),
+    identity,
     ttl: "10m",
-    metadata: "",
+    metadata: JSON.stringify({ identity }),
   });
 
   at.addGrant({
