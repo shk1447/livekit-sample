@@ -37,6 +37,8 @@ const GetHandler = async (
   const result = await ingressService.createIngress(IngressInput.RTMP_INPUT, {
     roomName: "default",
     participantIdentity: nanoid(),
+    bypassTranscoding: false,
+    enableTranscoding: true,
   });
 
   console.log(result);
