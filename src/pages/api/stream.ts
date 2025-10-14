@@ -34,7 +34,7 @@ const GetHandler = async (
   >,
   ingressService: IngressClient
 ) => {
-  const result = await ingressService.createIngress(IngressInput.WHIP_INPUT, {
+  const result = await ingressService.createIngress(IngressInput.RTMP_INPUT, {
     roomName: "default",
     participantIdentity: nanoid(),
   });

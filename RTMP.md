@@ -39,7 +39,7 @@ url
 
 ffmpeg -rtsp_transport tcp -i "rtsp://user1:!soxtest123@cctv.soxcorp.co.kr:5554/profile2/media.SMP" -c:v libx264 -preset veryfast -c:a aac -vbr 5 -f flv "rtmp://124.56.79.147:31935/x/WkyixJ5KnuXj"
 
-ffmpeg -loglevel verbose -rtsp_transport tcp -i "rtsp://user1:!soxtest123@cctv.soxcorp.co.kr:5554/profile2/media.SMP" -c:v copy -an -f whip "http://124.56.79.147:38080/w/SnB785QwZ2os"
+ffmpeg -loglevel verbose -rtsp_transport tcp -i "rtsp://user1:!soxtest123@cctv.soxcorp.co.kr:5554/profile2/media.SMP" -c:v copy -an -f whip "http://124.56.79.147:38080/w/pRBpHifavbzJ"
 
 ffmpeg -loglevel verbose -re -rtsp_transport tcp \
  -i "rtsp://user1:!soxtest123@cctv.soxcorp.co.kr:5554/profile2/media.SMP" \
