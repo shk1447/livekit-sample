@@ -35,7 +35,7 @@ const GetHandler = async (
   >,
   roomService: RoomServiceClient
 ) => {
-  const wsUrl = `ws://${process.env.LIVEKIT_URL}`;
+  const wsUrl = `wss://${process.env.LIVEKIT_URL}`;
   const accessInfo = await getAccessInfo("default");
 
   return res.status(200).json({
@@ -56,7 +56,7 @@ export default async function handler(
     return res.status(500).json({ code: "server:error", result: null });
   }
 
-  const livekitHost = `http://${process.env.LIVEKIT_URL}`;
+  const livekitHost = `https://${process.env.LIVEKIT_URL}`;
   const roomService = new RoomServiceClient(livekitHost, apiKey, apiSecret);
 
   switch (req.method) {
