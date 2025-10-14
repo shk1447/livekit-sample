@@ -59,7 +59,7 @@ export default async function handler(
     return res.status(500).json({ code: "server:error", result: null });
   }
 
-  const livekitHost = `http://${process.env.LIVEKIT_URL}`;
+  const livekitHost = `https://${process.env.LIVEKIT_URL}`;
   const ingressService = new IngressClient(livekitHost, apiKey, apiSecret);
 
   switch (req.method) {
