@@ -2,6 +2,7 @@ import { registViewModel } from "x-view-model";
 import { ParticipantState, RealtimeController } from "./RealtimeController";
 import axios from "axios";
 import { LocalAudioTrack, LocalVideoTrack } from "livekit-client";
+import { toast } from "sonner";
 
 export class MainController extends RealtimeController {
   constructor() {
@@ -12,7 +13,8 @@ export class MainController extends RealtimeController {
     });
     this.on("local_join", (args) => {
       //
-      alert(`${args.metadata.identity} joined!`);
+
+      toast.info(`${args.metadata.identity} joined!`);
     });
     this.on("remote_join", (args) => {
       // this.context!.remotes[args.metadata.identity] = {
@@ -20,7 +22,7 @@ export class MainController extends RealtimeController {
       //   microphone: { enabled: undefined, muted: undefined },
       //   metadata: args.metadata,
       // };
-      alert(`${args.metadata.identity} joined!`);
+      toast.info(`${args.metadata.identity} joined!`);
     });
 
     this.on("remote_leave", (args) => {

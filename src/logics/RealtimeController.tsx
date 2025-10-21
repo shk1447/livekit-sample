@@ -15,6 +15,7 @@ import {
 } from "livekit-client";
 
 import { EventHandler } from "./EventHandler";
+import { toast } from "sonner";
 
 export type GetFunctionKeys<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
@@ -504,6 +505,36 @@ export class RealtimeController extends EventHandler<RealtimeEventPayloads> {
       // this.context!.setStatus("DISCONNECTED");
       this.emit("status", "DISCONNECTED");
     });
+
+    room.registerByteStreamHandler(
+      "my-topic",
+      async (reader, participantInfo) => {
+        const info = reader.info;
+
+        // Optional, allows you to display progress information if the stream was sent with `sendFile`
+        reader.onProgress = (progress) => {
+          console.log(
+            `"progress ${progress ? (progress * 100).toFixed(0) : "undefined"}%`
+          );
+        };
+
+        // Option 1: Process the stream incrementally using a for-await loop.
+        for await (const chunk of reader) {
+          // Collect these however you want.
+          console.log(`Next chunk: ${chunk}`);
+        }
+
+        // Option 2: Get the entire file after the stream completes.
+
+        toast.info(
+          `File "${info.name}" received from ${participantInfo.identity}\n` +
+            `  Topic: ${info.topic}\n` +
+            `  Timestamp: ${info.timestamp}\n` +
+            `  ID: ${info.id}\n` +
+            `  Size: ${info.size}` // Optional, only available if the stream was sent with `sendFile`
+        );
+      }
+    );
 
     await room.connect(url, token, { autoSubscribe: true });
   }

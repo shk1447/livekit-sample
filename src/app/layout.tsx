@@ -9,6 +9,7 @@ import {
   mantineHtmlProps,
 } from "@mantine/core";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 export const metadata = {
   title: "My Mantine app",
@@ -26,7 +27,10 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <Toaster position="top-center" richColors />
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

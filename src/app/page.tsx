@@ -3,10 +3,20 @@ import { GridLayout } from "@/components/Layouts/GridLayout";
 import { GetMediaDevices } from "@/components/Media/GetMediaDevices";
 import { VideoTrackRenderer } from "@/components/Media/VideoTrackRenderer";
 import { MainViewModel } from "@/logics";
-import { Box, Button, Divider } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  CopyButton,
+  Divider,
+  FileButton,
+  Tooltip,
+} from "@mantine/core";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
 import axios from "axios";
 import { Participant, Track, VideoTrack } from "livekit-client";
 import { useEffect, useMemo } from "react";
+import { toast } from "sonner";
 import { useViewModel } from "x-view-model";
 
 export default function Home() {
@@ -103,13 +113,59 @@ export default function Home() {
         </Box>
         <Divider />
         <Box style={{ padding: "1rem", display: "flex", gap: "12px" }}>
-          <Box style={{ flex: 1 }}>{state.streamCLI}</Box>
+          <CopyButton
+            value={state.streamCLI ? state.streamCLI : ""}
+            timeout={2000}
+          >
+            {({ copied, copy }) => (
+              <Tooltip
+                label={copied ? "Copied" : "Copy"}
+                withArrow
+                position="right"
+              >
+                <ActionIcon
+                  color={copied ? "teal" : "gray"}
+                  variant="subtle"
+                  onClick={copy}
+                >
+                  {copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
+                </ActionIcon>
+              </Tooltip>
+            )}
+          </CopyButton>
+          <Box>{state.streamCLI}</Box>
+          <Box style={{ flex: 1 }}></Box>
+          <FileButton
+            onChange={async (payload) => {
+              // Send a `File` object
+              if (payload) {
+                const file = payload;
+                const info = await controller.room?.localParticipant.sendFile(
+                  file,
+                  {
+                    mimeType: file.type,
+                    topic: "my-topic",
+
+                    // Optional, allows progress to be shown to the user
+                    onProgress: (progress) =>
+                      console.log(
+                        "sending file, progress",
+                        Math.ceil(progress * 100)
+                      ),
+                  }
+                );
+                toast.info(`Sent file with stream ID: ${info?.id}`);
+              }
+            }}
+          >
+            {(props) => <Button {...props}>Send File</Button>}
+          </FileButton>
           <Button
             onClick={async () => {
               send("getStreamKey", undefined);
             }}
           >
-            STREAM KEY
+            RTSP FFMPEG CLI
           </Button>
           <Button
             onClick={async () => {
